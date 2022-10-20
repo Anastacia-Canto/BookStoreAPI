@@ -1,5 +1,5 @@
 {
-  "name": "bokk_store_api",
+  "name": "book_store_api",
   "version": "1.0.0",
   "description": "Creation of an API of a book store using Node.JS, Express and MongoDB",
   "main": "index.js",

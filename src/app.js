@@ -17,9 +17,31 @@ app.get('/books', (req, res) => {
 	res.status(200).json(books);
 });
 
+app.get('/books/:id', (req, res) => {
+	let index = searchBook(req.params.id);
+	res.status(200).json(books[index]);
+});
+
 app.post('/books', (req, res) => {
 	books.push(req.body);
 	res.status(201).send('Book successfully registered.');
 });
+
+app.put('/books/:id', (req, res) => {
+	let index = searchBook(req.params.id);
+	books[index].title = req.body.title;
+	res.status(200).json(books);
+});
+
+app.delete('/books/:id', (req, res) => {
+	let {id} = req.params;
+	let index = searchBook(id);
+	books.splice(index, 1);
+	res.status(200).send(`Book ${id} successfully deleted.`);
+});
+
+function searchBook(id) {
+	return books.findIndex(book => book.id == id);
+};
 
 export default app;
