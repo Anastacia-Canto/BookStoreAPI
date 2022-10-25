@@ -1,5 +1,5 @@
 import express from "express";
-import books from "./booksRoutes.js";
+import router from "./booksRoutes.js";
 
 
 const routes = (app) => {
@@ -9,7 +9,7 @@ const routes = (app) => {
 
 	app.use(
 		express.json(),
-		books
+		router
 	);
 };
 
