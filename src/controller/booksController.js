@@ -1,4 +1,5 @@
 import books from "../models/Book.js";
+import publishers from "../models/Publisher.js";
 
 class BookController {
 	
@@ -67,6 +68,24 @@ class BookController {
 				res.status(500).send({message: err.message});
 			};
 		});
+	};
+
+	static async listByPublisher(req, res) {
+		const publisher = req.query.publisher.replace('_', ' ');
+
+		const name = await publishers.findOne({'name': publisher});
+
+		if (name){
+			books.find({'publisher': name._id })
+			.populate('author')
+			.populate('publisher')
+			.exec((err, books) => {
+					res.status(200).json(books);
+			});
+		} else {
+			res.status(404).send({message: 'Publisher not found'});
+		};
+
 	};
 };
 
