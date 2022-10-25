@@ -11,7 +11,7 @@ Enviroment: Node.JS
 
 Package manager: NPM
 
-Libraries: Express, Mongoose, Nodemon
+Libraries: Express.JS, Mongoose, Nodemon
 
 Database: MongoDB Atlas
 
