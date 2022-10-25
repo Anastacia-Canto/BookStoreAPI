@@ -4,22 +4,28 @@ class BookController {
 	
 	static listBooks = (req, res) => {
 
-		books.find((err, books) => {
+		books.find()
+			.populate('author')
+			.populate('publisher')
+			.exec((err, books) => {
 			res.status(200).json(books);
 		});
 	};
 
 	static listBooksByID = (req, res) => {
 		const id = req.params.id;
-		books.findById(id, (err, books) => {
-			if (err) {
-				res.status(400).send({message: `${err.message} id out of pattern`});
-			} else if (books == null) {
-				res.status(404).send({message: 'Id nout found'});
-			} else {
-				res.status(200).send(books);
-			};
-		});
+		books.findById(id)
+			.populate('author', 'name')
+			.populate('publisher', 'name')
+			.exec((err, books) => {
+				if (err) {
+					res.status(400).send({message: `${err.message} id out of pattern`});
+				} else if (books == null) {
+					res.status(404).send({message: 'Id nout found'});
+				} else {
+					res.status(200).send(books);
+				};
+			});
 	}
 
 	static registerBook = (req, res) => {
