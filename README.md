@@ -14,6 +14,8 @@ Package manager: NPM
 Libraries: Express, Mongoose, Nodemon
 
 Database: MongoDB Atlas
+
+API testing: Postman
 <br><br>
 
 Usage:
