@@ -71,19 +71,19 @@ class BookController {
 	};
 
 	static async listByPublisher(req, res) {
-		const publisher = req.query.publisher.replace('_', ' ');
+		const publisherName = req.query.publisher.replace('_', ' ');
 
-		const name = await publishers.findOne({'name': publisher});
+		const publisher = await publishers.findOne({'name': publisherName});
 
-		if (name){
-			books.find({'publisher': name._id })
+		try {
+			books.find({'publisher': publisher._id })
 			.populate('author')
 			.populate('publisher')
 			.exec((err, books) => {
 					res.status(200).json(books);
 			});
-		} else {
-			res.status(404).send({message: 'Publisher not found'});
+		} catch (err) {
+			res.status(404).send({message: `${err.message} - Publisher not found`});
 		};
 
 	};
